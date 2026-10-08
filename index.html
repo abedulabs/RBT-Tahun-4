@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#d71920">
-<title>Bengkel Mini RBT Tahun 4 — Utamakan Keselamatan</title>
+<title>Keselamatan Bengkel — RBT Tahun 4</title>
 <style>
 :root{
   --red:#d71920; --red2:#b30f15; --yellow:#ffd400; --ink:#17343a;
@@ -18,7 +18,7 @@ button{font:inherit}
 .topbar{height:72px;background:linear-gradient(90deg,#fff 0,#fff9dc 45%,#ffe45d 100%);border-bottom:1px solid #e6e4d3;display:flex;align-items:center;justify-content:space-between;padding:0 22px;position:sticky;top:0;z-index:20}
 .brand{display:flex;gap:12px;align-items:center}.logo{width:43px;height:43px;border-radius:13px;background:var(--red);display:grid;place-items:center;color:#fff;font-weight:900;font-size:20px;box-shadow:inset 0 -5px 0 rgba(0,0,0,.12)}
 .brand small{display:block;font-size:10px;letter-spacing:2px;font-weight:900;color:#6a7370}.brand b{font-size:17px}
-.sound{display:flex;gap:8px;align-items:center}.pill{border:1px solid #d5dbd7;background:#fff;border-radius:999px;padding:9px 14px;cursor:pointer;font-weight:800;color:#425457}
+.sound{display:flex;gap:8px;align-items:center}.pill.sound-on{background:#e8faf4;border-color:#8ed6c5;color:#116d60}.pill.sound-off{opacity:.78}.pill{border:1px solid #d5dbd7;background:#fff;border-radius:999px;padding:9px 14px;cursor:pointer;font-weight:800;color:#425457}
 .hero{padding:28px 22px 18px;background:linear-gradient(135deg,#fff 0,#fffdf0 58%,#e9f7f0 100%);border-bottom:1px solid var(--line)}
 .kicker{color:var(--red);font-weight:900;font-size:12px;letter-spacing:2px}.hero h1{font-size:clamp(30px,6vw,50px);line-height:.98;margin:9px 0 10px;letter-spacing:-2px}.hero h1 span{color:var(--red)}.hero p{margin:0;color:#617073;font-size:15px}
 .scorebar{margin-top:22px;background:#fff;border:1px solid #e2e8e3;border-radius:18px;padding:13px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;box-shadow:var(--shadow)}
@@ -45,18 +45,60 @@ footer{padding:0 22px 30px;color:#7a8788;font-size:11px;letter-spacing:1px;text-
 @media(max-width:650px){
   .topbar{height:62px;padding:0 14px}.brand b{font-size:14px}.hero{padding:24px 15px 15px}.hero h1{font-size:34px}.scorebar{grid-template-columns:1fr}.tabs{margin-right:-15px;padding-right:15px}.tab{min-width:128px}.main{padding:15px}.options,.scenario{grid-template-columns:1fr}.signgrid{grid-template-columns:1fr 1fr}.workshop{min-height:500px}.wall{height:220px}.board{width:140px}.window{width:105px}.dz-flammable{left:18px;top:145px}.dz-tools{right:15px;top:140px}.dz-first{left:18px;top:325px}.dz-waste{right:15px;bottom:140px}.dz-exit{right:15px;bottom:30px}.bench{left:6%;right:6%}
 }
+
+/* --- Visual situation simulator --- */
+.visual-sim .sim-intro{color:var(--muted);margin-top:-4px}
+.scenario-card{position:relative;display:grid;grid-template-columns:58px 62px 1fr;align-items:center;gap:10px;min-height:112px;border:2px solid #efb0b0!important;border-radius:18px!important;background:#fff!important;padding:12px!important;text-align:left!important;overflow:hidden;cursor:pointer;transition:transform .18s,border-color .18s,box-shadow .18s}
+.scenario-card.safe{border-color:#a8d8cc!important}
+.scenario-card:hover,.scenario-card:focus-visible{transform:translateY(-2px);box-shadow:0 7px 18px rgba(30,50,45,.10);outline:none}
+.sign-mini{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;font-size:28px;border:2px solid #c9d0ce;background:#fff}
+.sign-flame{background:#fff0b8;border-color:#d9b735}.sign-caution{background:#fff1a8;border-color:#d9b735}
+.sign-electric{background:#e9f2ff;border-color:#8eb4df}.sign-ppe{background:#e8faf4;border-color:#94d4c5}
+.student-mini{height:72px;width:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:27px;line-height:24px;filter:drop-shadow(0 2px 1px rgba(0,0,0,.10))}
+.student-mini .body{font-size:28px}.student-mini .head{font-size:27px}
+.student-fire{animation:mini-worry 1.5s ease-in-out infinite}.student-cut{animation:mini-look 1.8s ease-in-out infinite}
+.student-electric{animation:mini-shake .7s ease-in-out infinite}.student-safe{animation:mini-bounce 1.6s ease-in-out infinite}
+.scenario-text{min-width:0}.scenario-text b{display:block;font-size:15px;line-height:1.25;color:#1d4e72}.scenario-text small{display:block;color:#6d7c7e;font-size:11px;margin-top:4px}
+.situation-stage{margin-top:16px;border:2px solid #d9e6e1;border-radius:20px;background:linear-gradient(#fffef3,#e9f7f1);overflow:hidden;display:grid;grid-template-columns:78px 1fr;min-height:280px;position:relative}
+.stage-sign{margin:18px;width:48px;height:48px;border-radius:10px;background:#fff;display:grid;place-items:center;font-size:29px;border:2px solid #d0d8d5;z-index:3}
+.stage-scene{position:relative;min-height:210px;margin:28px 20px 8px 0;border-bottom:10px solid #cbb58a;background:linear-gradient(#f3efe1 0 72%,#dfe8d9 72%);border-radius:16px 16px 5px 5px;overflow:hidden}
+.stage-scene:before{content:"BENGKEL RBT";position:absolute;left:16px;top:12px;font-size:10px;letter-spacing:2px;font-weight:1000;color:#63716e}
+.cartoon-student{position:absolute;left:29%;bottom:18px;width:68px;text-align:center;font-size:36px;z-index:4;transform-origin:50% 90%}
+.cartoon-head{font-size:39px;line-height:40px}.cartoon-body{font-size:41px;line-height:42px}.cartoon-legs{font-size:30px;line-height:28px}
+.scene-object{position:absolute;right:22%;bottom:35px;font-size:42px;z-index:3}
+.scene-effect{position:absolute;inset:0;pointer-events:none}
+.stage-copy{grid-column:1 / -1;background:#fff;padding:14px 18px;border-top:1px solid #dce7e3}
+.stage-title{font-weight:1000;font-size:18px;color:#17343a}.stage-desc{color:#66777a;margin-top:4px;font-size:13px}
+.situation-stage.fire .cartoon-student{animation:stage-panic .65s ease-in-out infinite alternate}
+.situation-stage.fire .scene-effect:before{content:"🔥 🔥";position:absolute;right:17%;bottom:72px;font-size:35px;animation:fire-pop .5s infinite alternate}
+.situation-stage.cut .cartoon-student{animation:stage-recoil .5s ease-in-out 3}
+.situation-stage.cut .scene-effect:before{content:"✦  Ouch!";position:absolute;left:34%;bottom:100px;color:#d71920;font-weight:1000;font-size:20px;animation:blink .45s 4}
+.situation-stage.electric .cartoon-student{animation:stage-shock .12s linear infinite}
+.situation-stage.electric .scene-effect:before{content:"⚡ ⚡ ⚡";position:absolute;left:29%;bottom:115px;color:#e5a800;font-size:28px;animation:flash .25s infinite}
+.situation-stage.safe .cartoon-student{animation:stage-happy 1s ease-in-out infinite alternate}
+.situation-stage.safe .scene-effect:before{content:"✓  SELAMAT!";position:absolute;left:38%;top:65px;color:#118b7d;font-weight:1000;font-size:20px;animation:good-pop 1s infinite alternate}
+@keyframes mini-worry{50%{transform:rotate(-3deg) translateY(-3px)}}@keyframes mini-look{50%{transform:rotate(3deg)}}@keyframes mini-shake{25%{transform:translateX(-2px)}75%{transform:translateX(2px)}}@keyframes mini-bounce{50%{transform:translateY(-4px)}}
+@keyframes stage-panic{to{transform:translateX(-5px) rotate(-4deg)}}@keyframes stage-recoil{to{transform:translateX(-18px) rotate(-8deg)}}@keyframes stage-shock{to{transform:translateX(5px) rotate(4deg)}}@keyframes stage-happy{to{transform:translateY(-9px) scale(1.04)}}
+@keyframes fire-pop{to{transform:scale(1.18) translateY(-5px)}}@keyframes blink{50%{opacity:.2}}@keyframes flash{50%{opacity:.15;transform:scale(1.18)}}@keyframes good-pop{to{transform:scale(1.08)}}
+@media(max-width:650px){
+ .scenario-card{grid-template-columns:48px 48px 1fr;min-height:100px;padding:10px!important}
+ .sign-mini{width:44px;height:44px;font-size:24px}.student-mini{width:44px;font-size:23px}.student-mini .head{font-size:23px}.student-mini .body{font-size:24px}
+ .scenario-text b{font-size:13px}.scenario-text small{font-size:10px}
+ .situation-stage{grid-template-columns:58px 1fr}.stage-sign{margin:13px;width:42px;height:42px;font-size:24px}.stage-scene{margin-right:12px}.cartoon-student{left:22%}.scene-object{right:10%}
+}
+
 </style>
 </head>
 <body>
 <div class="app">
 <header class="topbar">
   <div class="brand"><div class="logo">⚠</div><div><small>MAKMAL MINI</small><b>RBT TAHUN 4</b></div></div>
-  <div class="sound"><button class="pill" id="soundBtn">🔊 Bunyi</button></div>
+  <div class="sound"><button class="pill" id="soundBtn" aria-pressed="false" title="Hidupkan atau matikan bunyi">🔊 Bunyi</button></div>
 </header>
 
 <section class="hero">
   <div class="kicker">● JOM JADI PEREKA SELAMAT</div>
-  <h1>Utamakan <span>Keselamatan</span></h1>
+  <h1><span>Keselamatan Bengkel</span></h1>
   <p>Teroka bengkel mini, kenal pasti tanda keselamatan dan lihat apa berlaku apabila peraturan diabaikan.</p>
   <div class="scorebar">
     <div class="scoreitem"><div class="badge">⭐</div><div><b id="score">0</b> <small>mata sesi ini</small></div></div>
@@ -177,13 +219,48 @@ footer{padding:0 22px 30px;color:#7a8788;font-size:11px;letter-spacing:1px;text-
     <div class="progress" id="p3"></div>
   </div>
 
-  <div class="qcard">
-    <div class="qtop"><span>SIMULATOR KESAN</span><span>Belajar daripada akibat</span></div>
+  <div class="qcard visual-sim">
+    <div class="qtop"><span>SIMULATOR KESAN</span><span>Belajar daripada situasi</span></div>
+    <h3>🚧 Klik ikon papan tanda untuk melihat situasi bengkel</h3>
+    <p class="sim-intro">Setiap situasi mempunyai <b>papan tanda keselamatan + watak murid</b>. Tekan kad untuk melihat animasi apa yang berlaku.</p>
     <div class="scenario">
-      <button class="danger" data-consequence="fire"><b>🔥 Bahan mudah terbakar dekat sumber api</b><small>Tekan untuk lihat kesan.</small></button>
-      <button class="danger" data-consequence="cut"><b>🔪 Alatan tajam ditinggalkan di meja</b><small>Tekan untuk lihat kesan.</small></button>
-      <button class="danger" data-consequence="electric"><b>⚡ Tangan basah menyentuh peralatan elektrik</b><small>Tekan untuk lihat kesan.</small></button>
-      <button class="safe" data-consequence="safe"><b>🦺 Murid memakai PPE dan ikut arahan</b><small>Tekan untuk lihat hasil tindakan selamat.</small></button>
+      <button class="scenario-card danger" data-consequence="fire" aria-label="Situasi bahan mudah terbakar dekat sumber api">
+        <div class="sign-mini sign-flame">🔥</div>
+        <div class="student-mini student-fire"><span class="head">🙂</span><span class="body">👕</span></div>
+        <div class="scenario-text"><b>Bahan mudah terbakar dekat sumber api</b><small>⚠️ Tanda: MUDAH TERBAKAR</small><small>Tekan untuk lihat animasi.</small></div>
+      </button>
+      <button class="scenario-card danger" data-consequence="cut" aria-label="Situasi alatan tajam ditinggalkan di meja">
+        <div class="sign-mini sign-caution">⚠️</div>
+        <div class="student-mini student-cut"><span class="head">🙂</span><span class="body">👕</span></div>
+        <div class="scenario-text"><b>Alatan tajam ditinggalkan di meja</b><small>⚠️ Tanda: BERHATI-HATI</small><small>Tekan untuk lihat animasi.</small></div>
+      </button>
+      <button class="scenario-card danger" data-consequence="electric" aria-label="Situasi tangan basah menyentuh peralatan elektrik">
+        <div class="sign-mini sign-electric">⚡</div>
+        <div class="student-mini student-electric"><span class="head">🙂</span><span class="body">👕</span></div>
+        <div class="scenario-text"><b>Tangan basah menyentuh peralatan elektrik</b><small>⚡ Tanda: BAHAYA ELEKTRIK</small><small>Tekan untuk lihat animasi.</small></div>
+      </button>
+      <button class="scenario-card safe" data-consequence="safe" aria-label="Situasi murid memakai PPE dan ikut arahan">
+        <div class="sign-mini sign-ppe">🦺</div>
+        <div class="student-mini student-safe"><span class="head">😄</span><span class="body">🦺</span></div>
+        <div class="scenario-text"><b>Murid memakai PPE dan ikut arahan</b><small>✓ Tanda: UTAMAKAN KESELAMATAN</small><small>Tekan untuk lihat hasil baik.</small></div>
+      </button>
+    </div>
+
+    <div class="situation-stage" id="situationStage" aria-live="polite">
+      <div class="stage-sign" id="stageSign">⚠️</div>
+      <div class="stage-scene" id="stageScene">
+        <div class="cartoon-student" id="cartoonStudent">
+          <div class="cartoon-head">🙂</div>
+          <div class="cartoon-body">👕</div>
+          <div class="cartoon-legs">👖</div>
+        </div>
+        <div class="scene-object" id="sceneObject">🔧</div>
+        <div class="scene-effect" id="sceneEffect"></div>
+      </div>
+      <div class="stage-copy">
+        <div class="stage-title" id="stageTitle">Pilih satu situasi di atas</div>
+        <div class="stage-desc" id="stageDesc">Animasi situasi akan muncul di sini.</div>
+      </div>
     </div>
     <div class="consequence" id="consequence"></div>
   </div>
@@ -197,7 +274,7 @@ footer{padding:0 22px 30px;color:#7a8788;font-size:11px;letter-spacing:1px;text-
   <div class="btnrow"><button class="btn ghost" id="back2">← Misi 02</button><button class="btn yellow" id="resultBtn">🏆 Lihat Keputusan</button></div>
 </section>
 </main>
-<footer>RBT TAHUN 4 · BELAJAR SAMBIL BERMAIN · Sedia dimainkan tanpa internet</footer>
+<footer>KESELAMATAN BENGKEL · RBT TAHUN 4 · BELAJAR SAMBIL BERMAIN · Sedia dimainkan tanpa internet</footer>
 </div>
 
 <div class="result" id="result">
@@ -251,7 +328,7 @@ $("#to3").onclick=()=>{
 $("#back2").onclick=()=>showMission(2);
 
 
-$$(".sign").forEach(s=>s.onclick=()=>{
+$$(".sign").forEach(s=>s.onclick=()=>{ clickSound();
  const messages={
   danger:"⚠️ <b>AMARAN:</b> Berhenti seketika, kenal pasti risiko dan ikut arahan guru.",
   fire:"🧯 <b>PEMADAM API:</b> Ketahui lokasinya dan pastikan ia mudah dicapai semasa kecemasan.",
@@ -274,7 +351,7 @@ function wireOptions(){
         const fb=box.nextElementSibling;
         fb.className="feedback show "+(good?"good":"bad");
         fb.textContent=good?"✓ Tepat! Keselamatan diutamakan.":`✗ Belum tepat. Jawapan betul: ${ans}`;
-        if(good)addScore(10,"opt-"+bi+"-"+ans);
+        if(good){addScore(10,"opt-"+bi+"-"+ans);successSound();}else{errorSound();}
         box.dataset.locked="1";
       }
     })
@@ -296,12 +373,12 @@ zones.forEach(zone=>{
 });
 function place(itemKey,zone){
   if(itemKey!==zone.dataset.accept){
-    zone.classList.add("bad");setTimeout(()=>zone.classList.remove("bad"),500);
+    zone.classList.add("bad");errorSound();setTimeout(()=>zone.classList.remove("bad"),500);
     $("#dropFeedback").className="feedback show bad";$("#dropFeedback").textContent="✗ Lokasi tidak sesuai. Cuba semula.";
     return;
   }
   if(state.dragDone.has(itemKey))return;
-  state.dragDone.add(itemKey);addScore(10,"drag-"+itemKey);
+  state.dragDone.add(itemKey);addScore(10,"drag-"+itemKey);successSound();
   const item=items.find(x=>x.dataset.item===itemKey); if(item){item.classList.add("used");item.draggable=false}
   zone.textContent="✓ "+zone.textContent.replace(/^[^\s]+\s*/,"");
   zone.classList.add("good");
@@ -309,14 +386,20 @@ function place(itemKey,zone){
   selected=null;items.forEach(x=>x.classList.remove("selected"));save();
 }
 
-$$("[data-consequence]").forEach(b=>b.onclick=()=>{
-  const type=b.dataset.consequence, c=$("#consequence"); c.className="consequence show "+type;
-  const msg={
-    fire:"🔥 <b>AMARAN!</b> Percikan + bahan mudah terbakar boleh menyebabkan kebakaran. Murid perlu menjauh, memberi amaran kepada guru dan mengikut prosedur kecemasan.",
-    cut:"🩸 <b>RISIKO KECEDERAAN!</b> Alatan tajam yang dibiarkan boleh menyebabkan tangan tercucuk atau terluka. Simpan alatan selepas digunakan.",
-    electric:"⚡ <b>BAHAYA KEJUTAN ELEKTRIK!</b> Air boleh meningkatkan risiko kejutan elektrik. Tangan mesti kering dan arahan guru perlu dipatuhi.",
-    safe:"🦺 <b>HEBAT!</b> PPE, arahan guru, susunan alatan dan laluan yang kemas membantu mengurangkan risiko kemalangan."
-  };c.innerHTML=msg[type];
+$$("[data-consequence]").forEach(b=>b.onclick=()=>{ clickSound();
+  const type=b.dataset.consequence;
+  const c=$("#consequence"), stage=$("#situationStage"), sign=$("#stageSign"), title=$("#stageTitle"), desc=$("#stageDesc");
+  const data={
+    fire:{sign:"🔥",title:"Bahan mudah terbakar + sumber api",desc:"Murid cuai meletakkan bahan mudah terbakar berhampiran sumber api. Risiko kebakaran meningkat!",obj:"🔥",msg:"🔥 <b>AMARAN!</b> Jauhkan bahan mudah terbakar daripada api, haba dan percikan elektrik."},
+    cut:{sign:"⚠️",title:"Alatan tajam ditinggalkan",desc:"Murid boleh tersentuh atau tercucuk apabila alatan tajam dibiarkan di atas meja.",obj:"🔪",msg:"🩸 <b>RISIKO KECEDERAAN!</b> Selepas digunakan, alatan tajam perlu disimpan di tempat yang ditetapkan."},
+    electric:{sign:"⚡",title:"Tangan basah + peralatan elektrik",desc:"Air meningkatkan risiko kejutan elektrik. Murid perlu memastikan tangan kering sebelum menyentuh peralatan.",obj:"🔌",msg:"⚡ <b>BAHAYA KEJUTAN ELEKTRIK!</b> Jangan sentuh peralatan elektrik dengan tangan basah."},
+    safe:{sign:"🦺",title:"Murid mengutamakan keselamatan",desc:"Murid memakai PPE, mendengar arahan guru dan memastikan ruang kerja kemas. Inilah amalan bengkel yang betul!",obj:"🦺",msg:"🦺 <b>HEBAT!</b> Amalan keselamatan yang betul membantu mengurangkan risiko kemalangan."}
+  }[type];
+  stage.className="situation-stage "+type;
+  sign.textContent=data.sign; title.textContent=data.title; desc.textContent=data.desc;
+  $("#sceneObject").textContent=data.obj;
+  c.className="consequence show "+type;c.innerHTML=data.msg;
+  stage.scrollIntoView({behavior:"smooth",block:"nearest"});
 });
 
 const finalQs=[
@@ -341,7 +424,7 @@ function renderQuiz(){
    if(state.finalAnswers.has(i))return;
    const good=btn.textContent===box.dataset.answer;btn.classList.add(good?"correct":"wrong");
    const fb=box.nextElementSibling;fb.className="feedback show "+(good?"good":"bad");fb.textContent=good?"✓ Jawapan tepat!":"✗ Cuba semak semula konsep keselamatan.";
-   if(good){state.finalAnswers.add(i);addScore(10,"final-"+i);renderQuiz();state.finalAnswers.add(i)}
+   if(good){state.finalAnswers.add(i);addScore(10,"final-"+i);successSound();renderQuiz();state.finalAnswers.add(i)}else{errorSound()}
   })
  })
 }
@@ -366,7 +449,58 @@ $("#resultBtn").onclick=()=>{
  $("#result").classList.add("show");
 };
 $("#closeResult").onclick=()=>$("#result").classList.remove("show");
-$("#soundBtn").onclick=()=>{toast("🔊 Bunyi interaksi diaktifkan / dinyahaktifkan.");};
+let soundOn=false;
+let audioCtx=null;
+
+function ensureAudio(){
+  if(!audioCtx){
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC)return false;
+    audioCtx=new AC();
+  }
+  if(audioCtx.state==="suspended") audioCtx.resume();
+  return true;
+}
+function tone(freq=600,duration=.09,type="sine",volume=.045){
+  if(!soundOn || !ensureAudio()) return;
+  const now=audioCtx.currentTime;
+  const osc=audioCtx.createOscillator();
+  const gain=audioCtx.createGain();
+  osc.type=type;
+  osc.frequency.setValueAtTime(freq,now);
+  gain.gain.setValueAtTime(0.0001,now);
+  gain.gain.exponentialRampToValueAtTime(volume,now+.012);
+  gain.gain.exponentialRampToValueAtTime(0.0001,now+duration);
+  osc.connect(gain); gain.connect(audioCtx.destination);
+  osc.start(now); osc.stop(now+duration+.02);
+}
+function successSound(){
+  if(!soundOn)return;
+  tone(660,.08,"sine",.05);
+  setTimeout(()=>tone(880,.12,"sine",.05),75);
+}
+function errorSound(){
+  if(!soundOn)return;
+  tone(220,.16,"sawtooth",.035);
+}
+function clickSound(){ tone(520,.055,"triangle",.025); }
+
+$("#soundBtn").onclick=()=>{
+  soundOn=!soundOn;
+  if(soundOn){
+    ensureAudio();
+    $("#soundBtn").textContent="🔊 Bunyi ON";
+    $("#soundBtn").classList.add("sound-on");
+    $("#soundBtn").classList.remove("sound-off");
+    tone(740,.12,"sine",.05);
+    toast("🔊 Kesan bunyi dihidupkan.");
+  }else{
+    $("#soundBtn").textContent="🔇 Bunyi OFF";
+    $("#soundBtn").classList.remove("sound-on");
+    $("#soundBtn").classList.add("sound-off");
+    toast("🔇 Kesan bunyi dimatikan.");
+  }
+};
 load();updateScore();
 </script>
 </body>
